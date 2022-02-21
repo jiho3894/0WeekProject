@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="saramIT" />
+    <meta property="og:description" content="개발자 취업 정보는 역시 saramIT" />
+    <meta
+      property="og:image"
+      content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOL7fp30_vkzMyWm2-VoDegLAQtJPp41arcA&usqp=CAUL"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link rel="stylesheet" href="../static/login.css" />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <title>프로젝트 테스트코드</title>
+    <script>
+      const login = () => {
+        let inputId = $("#userID").val();
+        let inputPw = $("#userPassword").val();
+        if (inputId == "" || inputPw == "") {
+          alert("아이디 비밀번호를 정확히 입력해주세요");
+          return false;
+        }
+        $.ajax({
+          type: "POST",
+          url: "/login_check",
+          data: {
+            id_give: inputId,
+            password_give: inputPw,
+          },
+          success: (response) => {
+            if (response["result"] == "success") {
+              location.href = "/main";
+            } else {
+              alert(response["msg"]);
+            }
+          },
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="login_box">
+        <p class="login_title">로그인</p>
+        <input id="userID" class="input" type="text" placeholder="아이디" />
+        <input
+          id="userPassword"
+          class="input"
+          type="password"
+          placeholder="비밀번호"
+        />
+        <button class="login_btn" onclick="login()">로그인</button>
+      </div>
+      <a href="/signup_render" class="signup-btn">회원가입하기</a>
+    </div>
+  </body>
+</html>

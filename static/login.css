@@ -1,0 +1,139 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+a {
+  text-decoration-line: none;
+  color: black;
+}
+
+input:focus {
+  outline: none;
+}
+
+.wrap {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  position: relative;
+}
+
+.login_box {
+  width: 340px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.login_title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.login_box input.input {
+  width: 340px;
+  height: 54px;
+  padding: 5px 10px;
+  font-weight: 500;
+  font-size: 20px;
+  outline: none;
+}
+
+#userID {
+  border-radius: 7px 7px 0 0;
+}
+
+#userPassword {
+  border-radius: 0 0 7px 7px;
+}
+
+.login_btn {
+  margin-top: 20px;
+  width: 100%;
+  height: 54px;
+  background-color: #f82f62;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+}
+
+.signup-btn {
+  display: inline-block;
+  width: 160px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  color: #000;
+  background-color: #fff;
+  padding: 14px 10px;
+  border: none;
+  border-radius: 50px;
+  position: absolute;
+  top: 25px;
+  right: 30px;
+}
+
+/*#container {*/
+/*  width: 100%;*/
+/*  height: 100vh;*/
+/*  background-color: aqua;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*}*/
+
+/*#box {*/
+/*  width: 50%;*/
+/*  height: 50vh;*/
+/*  background-color: green;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*}*/
+
+/*.logo {*/
+/*  width: 90%;*/
+/*  height: 40px;*/
+/*  background-color: pink;*/
+/*}*/
+
+/*#formBox {*/
+/*  width: 90%;*/
+/*  height: 400px;*/
+/*  background-color: yellow;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*}*/
+
+/*.loginBox {*/
+/*  width: 100%;*/
+/*  height: 200px;*/
+/*  background-color: red;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*}*/
+
+/*.checkBtn {*/
+/*  width: 100%;*/
+/*  height: 80px;*/
+/*  background-color: aqua;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*}*/

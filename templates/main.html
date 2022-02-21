@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <!--    <link rel="stylesheet" type="text/css" href="/static/main_style.css">-->
+    <!--    <script src="../static/main_script.js" defer></script>-->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
+    />
+    <link rel="stylesheet" href="../static/main.css" />
+    <title>메인</title>
+  </head>
+  <script>
+    window.onload = () => {
+      const converted_filename = "{{ session['converted_filename'] }}";
+      $(".img-circle").attr("src", `static/images/${converted_filename}`);
+      let temp_html = `<div class="user_profile">
+                    <img src="static/images/${converted_filename}" class="img-circle" width="100%" height="100%" style="border-radius: 50%"/>
+                    </div>`;
+      $("#profile_box").append(temp_html);
+      $("#profile_box2").append(temp_html);
+    };
+  </script>
+  <body>
+    <div class="wrap">
+      <nav class="navbar">
+        <div class="headerContinaer">
+          <div class="navbar_logo">
+            <span><a href="/main">LOGO</a></span>
+          </div>
+          <div class="navbar_userMenu">
+            <div id="profile_box"></div>
+          </div>
+        </div>
+      </nav>
+      <div class="detailBox">
+        <div id="profile_container">
+          <div id="profile_box2"></div>
+          <a href="/userprofile"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z"
+                clip-rule="evenodd"
+              /></svg
+          ></a>
+        </div>
+        <div id="edit_container">
+          <div class="nickName">
+            <span>{{session['userId_session']}} 회원님</span>
+          </div>
+          <div>
+            <a href="/star"><span>즐겨찾기</span></a>
+          </div>
+          <div>
+            <a href="/userpassword"><span>회원정보수정</span></a>
+          </div>
+          <div>
+            <a href="/logout"><span>로그아웃</span></a>
+          </div>
+        </div>
+      </div>
+      <section class="movie_slid_section">
+        <div class="slid_wrap"></div>
+      </section>
+      <p
+        style="color: #fff; font-size: 30px; background-color: #000; margin: 0"
+      >
+        지금 뜨는 콘텐츠
+      </p>
+      <section class="movie_scroll_section"></section>
+    </div>
+    <script>
+      $(".navbar_userMenu").click(() => {
+        $(".detailBox").toggle();
+      });
+      $.ajax({
+        type: "GET",
+        url: "https://api.themoviedb.org/3/movie/popular?api_key=9594c9ccbbcc42235a2072ad7d3699ae&language=en-US&page=1",
+        success: (response) => {
+          const movies = response.results;
+          movies.slice(0, 8).map((data, index) => {
+            const image_path = data.backdrop_path;
+            const movie_title = data.original_title;
+            const movie_desc = data.overview;
+            let temp_html = `<div class="wrap">
+                                    <div class="slid_movie ${index}" style="background-image: url('https://image.tmdb.org/t/p/original/${image_path}')"/>
+                                    <div class="movie_desc">
+                                        <button class="favor-btn">★</button>
+                                        <p class="movie-title">${movie_title}</p>
+                                        <p class="movie-desc-simple">${movie_desc}</p>
+                                    </div>/
+                                </div>`;
+            $(".slid_wrap").append(temp_html);
+          });
+          $(".slid_wrap").slick({
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            autoplay: true,
+            autoplaySpeed: 5000,
+          });
+        },
+      });
+      $.ajax({
+        type: "GET",
+        url: "https://api.themoviedb.org/3/movie/now_playing?api_key=9594c9ccbbcc42235a2072ad7d3699ae&language=en-US&page=1",
+        success: (response) => {
+          const movies = response.results;
+          movies.map((data, index) => {
+            const image_path = data.backdrop_path;
+            let temp_html = `<div class="scroll_movie ${index}" style="background-image: url('https://image.tmdb.org/t/p/original/${image_path}')"/>`;
+            $(".movie_scroll_section").append(temp_html);
+          });
+        },
+      });
+    </script>
+  </body>
+</html>
