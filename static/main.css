@@ -1,6 +1,17 @@
 * {
   box-sizing: border-box;
   margin: 0;
+  box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+  border-radius: 50px;
+}
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(#e0eafc, #81ecec);
+  border-radius: 50px;
 }
 
 button {
@@ -10,7 +21,12 @@ button {
 
 a {
   text-decoration-line: none;
-  color: white;
+  color: black;
+}
+
+a:hover {
+  color: black;
+  font-weight: 600;
 }
 
 /*상단 헤더*/
@@ -40,6 +56,8 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: red;
+  background-color: white;
 }
 
 .navbar_logo > span {
@@ -92,7 +110,12 @@ a {
   right: 10px;
   z-index: 100;
   border-radius: 100%;
-  background-color: black;
+  background-color: white;
+}
+
+#profile_container > a > svg:hover {
+  transform: scale(1.03);
+  transition: transform 0.1s;
 }
 
 #profile_box2 {
@@ -111,8 +134,25 @@ a {
   height: 55%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+}
+
+.scaleBox {
+  width: 90%;
+  background-color: gray;
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  font-weight: 600;
+}
+
+.scaleBox:hover {
+  transform: scale(1.03);
+  transition: transform 0.1s;
 }
 
 .nickName > span {

@@ -80,13 +80,13 @@
           <div class="nickName">
             <span>{{session['userId_session']}} 회원님</span>
           </div>
-          <div>
+          <div class="scaleBox">
             <a href="/star"><span>즐겨찾기</span></a>
           </div>
-          <div>
+          <div class="scaleBox">
             <a href="/userpassword"><span>회원정보수정</span></a>
           </div>
-          <div>
+          <div class="scaleBox">
             <a href="/logout"><span>로그아웃</span></a>
           </div>
         </div>
@@ -103,8 +103,9 @@
     </div>
     <script>
       $(".navbar_userMenu").click(() => {
-        $(".detailBox").toggle();
+        $(".detailBox").slideToggle(100);
       });
+
       $.ajax({
         type: "GET",
         url: "https://api.themoviedb.org/3/movie/popular?api_key=9594c9ccbbcc42235a2072ad7d3699ae&language=en-US&page=1",
