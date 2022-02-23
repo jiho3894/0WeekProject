@@ -20,9 +20,8 @@ client = MongoClient(
     'mongodb+srv://admin:admin@cluster0.cs5sa.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.toy
 
+
 # 랜딩 페이지
-
-
 @app.route('/')
 def index():
     # 세션 정보가 있으면 메인 페이지로 리다이렉팅
@@ -32,9 +31,8 @@ def index():
     else:
         return render_template('login.html')
 
+
 # 메인 페이지
-
-
 @app.route('/main')
 def main():
     # 세션 정보가 있으면 메인 페이지로 렌더링
@@ -46,9 +44,8 @@ def main():
     else:
         return render_template('login.html')
 
+
 # 로그인
-
-
 @app.route('/login_check', methods=["GET", "POST"])
 def login():
     # request method가 POST인 경우
@@ -78,7 +75,7 @@ def login():
             user = db.users.find_one({'user_id': userId_receive})
             # 유저 프로필 이미지 정보 획득
             profile = db.profile.find(
-                {'profile_no': user['profile_no']}, {'_id': False})
+                {'user_id': user['user_id']}, {'_id': False})
             # 최근 이미지 정보만 획득 후 RETURN
             lastest_profile = sorted(
                 profile, key=lambda k: k['profile_no'])[-1]
@@ -93,16 +90,14 @@ def login():
     else:
         return '잘못된 접근입니다.'
 
+
 # 회원가입 페이지 렌더링
-
-
 @app.route('/signup_render')
 def signup_render():
     return render_template('signup.html')
 
+
 # 회원가입
-
-
 @app.route('/signup', methods=["POST"])
 def signup_post():
     # [유저 고유번호 부여]
@@ -148,17 +143,15 @@ def signup_post():
     # 회원 가입 완료 후, result, msg 리턴
     return jsonify({'result': 'success', 'msg': '회원 가입이 완료되었습니다.'})
 
+
 # 아이디 중복체크 (매개변수=유저가 입력한 ID값)
-
-
 def duplicate_chk(id_receive):
     # 유저가 입력한 ID값으로 users DB에 중복되는 값이 있는지 확인 후 리턴 (리턴되는 값 True 또는 False)
     exists = bool(db.users.find_one({"user_id": id_receive}))
     return exists
 
-# 회원정보수정
 
-
+# 프로필 변경 페이지로 렌더링
 @app.route('/userprofile')
 def user_profile():
     # 세션 정보가 있으면 회원정보 수정 페이지로 렌더링
@@ -169,18 +162,7 @@ def user_profile():
         return redirect('/')
 
 
-@app.route('/userpassword')
-def user_password():
-    # 세션 정보가 있으면 회원정보 수정 페이지로 렌더링
-    if 'userId_session' in session:
-        return render_template('editpassword.html')
-    # 세션 정보가 없으면 랜딩 페이지로 이동
-    else:
-        return redirect('/')
-
-# 파일 업로드(local)
-
-
+# 프로필 이미지 변경
 @app.route('/file_upload', methods=["POST"])
 def upload_file():
     # 세션 정보가 있으면 처리 실행
@@ -235,9 +217,19 @@ def upload_file():
     else:
         return render_template('login.html')
 
+
+# 패스워드 변경 페이지로 렌더링
+@app.route('/userpassword')
+def user_password():
+    # 세션 정보가 있으면 패스워드 수정 페이지로 렌더링
+    if 'userId_session' in session:
+        return render_template('editpassword.html')
+    # 세션 정보가 없으면 랜딩 페이지로 이동
+    else:
+        return redirect('/')
+
+
 # 회원정보 수정
-
-
 @app.route('/edit', methods=["POST"])
 def edit_user_info():
     # 세션 정보가 존재하는 경우
@@ -284,7 +276,7 @@ def edit_user_info():
                         }}
                     )
                     # 변경 전 프로필 이미지 파일을 로컬에서 삭제 (변경 전 이미지가 기본 프로필 이미지가 아닌 경우)
-                    if images[len(images)-2]['profile_no'] != 0:
+                    if images[len(images) - 2]['profile_no'] != 0:
                         delete_filename = img_filepath + \
                             images[len(images) - 2]['converted_filename']
                         # 로컬에 해당 파일이 있는지 확인 후 삭제
@@ -331,31 +323,99 @@ def edit_user_info():
     else:
         return render_template('login.html')
 
+
 # 즐겨찾기
-
-
-@app.route('/star')
+@app.route('/star', methods=["GET"])
 def favorites():
-    return render_template('favorites.html')
+    # 세션 정보가 존재 하는 경우 즐겨찾기 페이지로 렌더링
+    if 'userId_session' in session:
+        return render_template('favorites.html')
+    # 세션 정보가 존재 하지 않는 경우 '/'로 리다이렉팅
+    else:
+        return redirect('/')
+
+
+# 즐겨찾기 리스트 조회
+@app.route('/star_load', methods=["GET"])
+def favorites_load():
+    # 세션 정보가 존재 하는 경우 즐겨찾기 페이지로 렌더링
+    if 'userId_session' in session:
+        # 유저 즐겨찾기 전체 검색
+        myfavorites_list = list(db.favorites.find(
+            {'user_id': session.get('userId_session')}, {'_id': False}))
+        # 즐겨찾기 리스트를 JSON형식으로 리턴
+        return jsonify({'result': 'success', 'favorites_list': myfavorites_list})
+    # 세션 정보가 존재 하지 않는 경우 '/'로 리다이렉팅
+    else:
+        return redirect('/')
+
+
+# 즐겨찾기 관리
+@app.route('/manage_star', methods=["POST"])
+def manage_favorites():
+    # 세션 정보가 존재하는 경우 즐겨찾기 관리 처리 실행
+    if 'userId_session' in session:
+        movie_id_receive = request.form['movie_id_give']
+        movie_title_receive = request.form['movie_title_give']
+        poster_path_receive = request.form['poster_path_give']
+        user_id_receive = session.get('userId_session')
+        order_flag_receive = request.form['oder_flag_give']
+        # 유저의 즐겨찾기 리스트 조회
+        myfavorites_list = list(db.favorites.find(
+            {'user_id': user_id_receive}, {'_id': False}))
+
+        # order_flag가 'add'인 경우 즐겨찾기 [추가] 처리 실행
+        if order_flag_receive == 'add':
+            # 즐겨찾기 리스트에 영화 데이터가 하나도 없는 경우
+            if len(myfavorites_list) == 0:
+                doc = {
+                    'movie_no': 0,
+                    'movie_id': movie_id_receive,
+                    'movie_title': movie_title_receive,
+                    'poster_path': poster_path_receive,
+                    'user_id': user_id_receive
+                }
+            # 즐겨찾기 리스트에 영화 데이터가 1개 이상 존재하는 경우
+            else:
+                # 람다함수를 이용, movie_no 컬럼을 key로 오름차순 정렬 후 [-1]로 마지막 요소 추출
+                lastest_movie = sorted(
+                    myfavorites_list, key=lambda k: k['movie_no'])[-1]
+                # 마지막 요소의 movie_no 에 1 증산 후 movie_no에 고유 번호 부여
+                movie_no = lastest_movie['movie_no'] + 1
+                doc = {
+                    'movie_no': movie_no,
+                    'movie_id': movie_id_receive,
+                    'movie_title': movie_title_receive,
+                    'poster_path': poster_path_receive,
+                    'user_id': user_id_receive
+                }
+            # 즐겨찾기 DB에 영화 정보 등록
+            db.favorites.insert_one(doc)
+            return jsonify({'result': 'success', 'msg': '즐겨찾기에 추가되었습니다.'})
+
+        # order_flag가 'delete'인 경우 즐겨찾기 [삭제] 처리 실행
+        if order_flag_receive == 'delete':
+            db.favorites.delete_one(
+                {'movie_id': movie_id_receive, 'user_id': user_id_receive})
+            return jsonify({'result': 'success', 'msg': '즐겨찾기에서 삭제되었습니다.'})
+    else:
+        return redirect('/')
+
 
 # 로그아웃
-
-
 @app.route('/logout')
 def logout():
     # session 강제 만료 후 '/'로 리다이렉팅
     session.pop("userId_session", None)
     return redirect('/')
 
+
 # session 수명
-
-
 @app.before_request
 def make_session_permanent():
     session.permanent = True  # False인 경우 31일동안 보관
     app.permanent_session_lifetime = timedelta(
-        minutes=30)  # session 수명을 5분간 유지
-    # 김지호 : 잠시 30분으로 연장 좀 하겠습니다
+        minutes=30)  # session 수명을 30분간 유지
 
 
 if __name__ == '__main__':

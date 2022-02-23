@@ -35,6 +35,7 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
+    <link rel="stylesheet" href="../static/signup.css" />
     <title>프로젝트 테스트코드</title>
     <script>
       const save_order = () => {
@@ -65,14 +66,25 @@
     </script>
   </head>
   <body>
-    <div>
-      <div>
-        <input type="text" id="id" /> 4~12자의 영문 대소문자와
-        <input type="password" id="password" minlength="4" /> 4~12자의 영문
-        대소문자와 숫자로만 입력
-        <a href="/">돌아가기</a>
-        <button onclick="save_order()">회원가입</button>
+    <div class="wrap">
+      <div class="signup-box">
+        <p class="signup_title">회원가입</p>
+        <input
+          type="text"
+          id="id"
+          class="input"
+          placeholder="4~12자의 영문 대소문자"
+        />
+        <input
+          type="password"
+          id="password"
+          class="input"
+          minlength="4"
+          placeholder="4~12자의 영문대소문자와 숫자"
+        />
+        <button class="signup-btn" onclick="save_order()">회원가입</button>
       </div>
+      <a href="/" class="goBack-btn">돌아가기</a>
     </div>
   </body>
 </html>

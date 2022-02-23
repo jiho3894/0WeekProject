@@ -147,3 +147,9 @@ input:focus {
 /*  justify-content: center;*/
 /*  align-items: center;*/
 /*}*/
+
+.box {
+  width: 340px;
+  height: 115px;
+  background-color: red;
+}

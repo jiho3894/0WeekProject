@@ -38,27 +38,116 @@
     ></script>
     <title>프로젝트 테스트코드</title>
   </head>
+  <script>
+    window.onload = () => {
+      const converted_filename = "{{ session['converted_filename'] }}";
+      $(".img-circle").attr("src", `static/images/${converted_filename}`);
+      let temp_html = `<div class="user_profile">
+                    <img src="static/images/${converted_filename}" class="img-circle" width="100%" height="100%" style="border-radius: 50%"/>
+                    </div>`;
+      $("#profile_box").append(temp_html);
+      $("#profile_box2").append(temp_html);
+    };
+  </script>
   <body>
+    <nav class="navbar">
+      <div class="headerContinaer">
+        <div class="navbar_logo">
+          <span><a href="/main">LOGO</a></span>
+        </div>
+        <div class="navbar_userMenu">
+          <div id="profile_box"></div>
+        </div>
+      </div>
+    </nav>
+    <div class="detailBox">
+      <div id="profile_container">
+        <div id="profile_box2"></div>
+        <a href="/userprofile"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z"
+              clip-rule="evenodd"
+            /></svg
+        ></a>
+      </div>
+      <div id="edit_container">
+        <div class="nickName">
+          <span>{{session['userId_session']}} 회원님</span>
+        </div>
+        <div class="scaleBox">
+          <a href="/star"><span>즐겨찾기</span></a>
+        </div>
+        <div class="scaleBox">
+          <a href="/userpassword"><span>회원정보수정</span></a>
+        </div>
+        <div class="scaleBox">
+          <a href="/logout"><span>로그아웃</span></a>
+        </div>
+      </div>
+    </div>
     <div id="container">
       <div id="wrapper">
         <div id="leftBox">
-          <a href="/main">나가</a>
-          <a href="/userInfo">회원정보</a>
-          <a href="/star">즐겨찾기</a>
+          <a href="/main" class="side-btn goBack-main-btn">메인화면</a>
+          <a href="/userInfo" class="side-btn goto-editMem">회원정보</a>
+          <a href="/star" class="side-btn goto-favor">즐겨찾기</a>
         </div>
         <div id="rightBox"></div>
       </div>
     </div>
   </body>
   <script>
+    $(".navbar_userMenu").click(() => {
+      $(".detailBox").slideToggle(100);
+    });
+
+    const favorite = (num) => {
+      const test = $(".favorite")[num];
+      const title = test.querySelector(".movie-title").innerHTML;
+      const id = test.querySelector(".movie_id").innerHTML;
+      const poster = test
+        .querySelector(".slid_movie")
+        .style.backgroundImage.split('"')[1];
+      $.ajax({
+        type: "POST",
+        url: "/manage_star",
+        data: {
+          movie_id_give: id,
+          movie_title_give: title,
+          poster_path_give: poster,
+          oder_flag_give: "delete",
+        },
+        success: (response) => {
+          alert(response.msg);
+          location.reload();
+        },
+      });
+    };
+
     $.ajax({
       type: "GET",
-      url: "https://api.themoviedb.org/3/movie/now_playing?api_key=9594c9ccbbcc42235a2072ad7d3699ae&language=en-US&page=1",
+      url: "/star_load",
       success: (response) => {
-        const movie = response.results;
-        movie.slice(0, 3).map((data) => {
-          const row = data.poster_path;
-          let temp_html = `<img width="300px" height="440px" src="https://image.tmdb.org/t/p/original/${row}"></img>`;
+        console.log(response);
+        response.favorites_list.map((data, index) => {
+          const movie_id = data.movie_id;
+          const image_path = data.poster_path;
+          const movie_title = data.movie_title;
+          let temp_html = `<div  class="favorite">
+            <div class="slid_movie" style=" background-image: url('${image_path}')"/>
+            <div class="movie_desc">
+                <button onclick="favorite(${index})" class="favor-btn">❌</button>
+                <p class="movie_id">${movie_id}</p>
+                <p class="movie-title">${movie_title}</p>
+            </div>
+        </div>`;
           $("#rightBox").append(temp_html);
         });
       },

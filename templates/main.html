@@ -91,14 +91,8 @@
           </div>
         </div>
       </div>
-      <section class="movie_slid_section">
-        <div class="slid_wrap"></div>
-      </section>
-      <p
-        style="color: #fff; font-size: 30px; background-color: #000; margin: 0"
-      >
-        지금 뜨는 콘텐츠
-      </p>
+      <div class="sliderContainer"></div>
+      <div class="middleContainer"><span>지금 뜨는 콘텐츠</span></div>
       <section class="movie_scroll_section"></section>
     </div>
     <script>
@@ -106,30 +100,74 @@
         $(".detailBox").slideToggle(100);
       });
 
+      const favorite = (num) => {
+        const test = $(".favorite")[num];
+        const title = test.querySelector(".movie-title").innerHTML;
+        const id = test.querySelector(".movie_id").innerHTML;
+        const poster = test
+          .querySelector(".slid_movie")
+          .style.backgroundImage.split('"')[1];
+        const test33 = test.querySelector(".favor-btn").style.color;
+        test33 === "red"
+          ? alert("즐겨찾기 이미 함")
+          : $.ajax({
+              type: "POST",
+              url: "/manage_star",
+              data: {
+                movie_id_give: id,
+                movie_title_give: title,
+                poster_path_give: poster,
+                oder_flag_give: "add",
+              },
+              success: (response) => {
+                alert(response.msg);
+                location.reload();
+              },
+            });
+      };
+
       $.ajax({
         type: "GET",
-        url: "https://api.themoviedb.org/3/movie/popular?api_key=9594c9ccbbcc42235a2072ad7d3699ae&language=en-US&page=1",
+        url: "https://api.themoviedb.org/3/movie/popular?api_key=9594c9ccbbcc42235a2072ad7d3699ae&language=ko-KR&page=1",
         success: (response) => {
           const movies = response.results;
-          movies.slice(0, 8).map((data, index) => {
+          movies.slice(0, 20).map((data, index) => {
+            const movie_id = data.id;
             const image_path = data.backdrop_path;
-            const movie_title = data.original_title;
+            const movie_title = data.title;
             const movie_desc = data.overview;
-            let temp_html = `<div class="wrap">
-                                    <div class="slid_movie ${index}" style="background-image: url('https://image.tmdb.org/t/p/original/${image_path}')"/>
+            let temp_html = `<div  class="favorite">
+                                    <div class="slid_movie" style="background-image: url('https://image.tmdb.org/t/p/original/${image_path}')"/>
                                     <div class="movie_desc">
-                                        <button class="favor-btn">★</button>
+                                        <button onclick="favorite(${index})" class="favor-btn"><p>★</p></button>
+                                        <p class="movie_id">${movie_id}</p>
                                         <p class="movie-title">${movie_title}</p>
                                         <p class="movie-desc-simple">${movie_desc}</p>
                                     </div>/
                                 </div>`;
-            $(".slid_wrap").append(temp_html);
-          });
-          $(".slid_wrap").slick({
-            slidesToShow: 4,
-            slidesToScroll: 4,
-            autoplay: true,
-            autoplaySpeed: 5000,
+            $(".movie_scroll_section").append(temp_html);
+            $.ajax({
+              type: "GET",
+              url: "/star_load",
+              success: (response) => {
+                const row = index;
+                const test = $(".favorite")[row];
+                const id = test.querySelector(".movie_id").innerHTML;
+                console.log(id);
+                const array_movie = [];
+                console.log(array_movie);
+                response.favorites_list.map((data) => {
+                  array_movie.push(data.movie_id);
+                });
+                array_movie.findIndex((movie) =>
+                  movie === id
+                    ? test
+                        .querySelector(".favor-btn")
+                        .setAttribute("style", "color: red;")
+                    : console.log("안녕")
+                );
+              },
+            });
           });
         },
       });
@@ -137,11 +175,18 @@
         type: "GET",
         url: "https://api.themoviedb.org/3/movie/now_playing?api_key=9594c9ccbbcc42235a2072ad7d3699ae&language=en-US&page=1",
         success: (response) => {
-          const movies = response.results;
-          movies.map((data, index) => {
-            const image_path = data.backdrop_path;
-            let temp_html = `<div class="scroll_movie ${index}" style="background-image: url('https://image.tmdb.org/t/p/original/${image_path}')"/>`;
-            $(".movie_scroll_section").append(temp_html);
+          const row = response.results;
+          row.slice(0, 8).map((data, index) => {
+            const poster = data.backdrop_path;
+            console.log(poster);
+            let temp_html = `<div class="sliderBox ${index}" style="background-image: url('https://image.tmdb.org/t/p/original/${poster}')"></div>`;
+            $(".sliderContainer").append(temp_html);
+          });
+          $(".sliderContainer").slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 5000,
           });
         },
       });
