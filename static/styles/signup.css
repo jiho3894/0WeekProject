@@ -1,0 +1,166 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+  border-radius: 50px;
+}
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(#e0eafc, #81ecec);
+  border-radius: 50px;
+}
+
+a {
+  text-decoration-line: none;
+  color: black;
+}
+
+input:focus {
+  outline: none;
+}
+
+.back_image {
+  width: 100%;
+  height: 100vh;
+  background-image: url("https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/69236033_1166762963533609_1149146571951046656_n.jpg?stp=cp0_dst-jpg_e15_fr_q65&_nc_cat=108&ccb=1-5&_nc_sid=8024bb&_nc_ohc=bhHaRstgYaMAX_K52lO&_nc_ht=scontent-ssn1-1.xx&oh=00_AT8suAQbK6cmRfyEjSBJ97sGKIWsEb-v7USV0aGUGGWo5g&oe=623B914C");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  z-index: -3;
+}
+
+#container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* 상단 */
+
+header {
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header_box {
+  width: 95%;
+  height: 6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.goBack_box {
+  width: 100px;
+  height: 2.5rem;
+  border-radius: 1.5rem;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goBack_box:hover {
+  background-color: rgb(225, 225, 225);
+}
+
+.goBack_box > a {
+  font-size: 16px;
+  color: black;
+}
+
+/* 회원가입 폼 */
+
+.signup_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup_box {
+  width: 300px;
+  height: 300px;
+}
+
+.signup_title {
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+}
+
+.signup_title > span {
+  font-size: 20px;
+  color: white;
+}
+
+.signup_input {
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup_input > #id {
+  width: 100%;
+  height: 2.5rem;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 3px 3px 0 0;
+}
+
+.signup_input > #password {
+  width: 100%;
+  height: 2.5rem;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 0 0 3px 3px;
+}
+
+.signup_btn {
+  width: 100%;
+  height: 3rem;
+  border-radius: 1.5rem;
+  border: 0;
+  background-color: rgb(248, 47, 98);
+  margin-top: 20px;
+}
+
+.signup_btn:hover {
+  background-color: rgb(252, 3, 65);
+}
+
+.signup_btn > span {
+  font-size: 20px;
+  color: white;
+}
+
+/* 하단 */
+
+footer {
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer_overview {
+  color: white;
+}
+
+@media screen and (max-width: 500px) {
+  .footer_overview {
+    font-size: 10px;
+  }
+}
