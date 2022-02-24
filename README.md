@@ -1,1 +1,1 @@
-#  [🏠 HOMEPAGE](https://jiho3894.github.io/hanghe99_0-Week/WATCHING/index.html)
+#  [🏠 HOMEPAGE](https://jiho3894.github.io/0WeekProject/WATCHING/index.html)
