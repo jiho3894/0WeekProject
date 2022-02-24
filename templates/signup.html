@@ -35,56 +35,51 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
-    <link rel="stylesheet" href="../static/signup.css" />
-    <title>프로젝트 테스트코드</title>
-    <script>
-      const save_order = () => {
-        let id = $("#id").val();
-        let password = $("#password").val();
-        let RegExp = /^[a-zA-z0-9]{4,12}$/;
-        if (RegExp.test(id) === false) {
-          alert("아이디는 4~12자리의 영대소문자와 숫자로");
-          return false;
-        } else if (RegExp.test(password) === false) {
-          alert("비밀번호는 4~12자리의 영대소문자와 숫자로");
-          return false;
-        }
-        $.ajax({
-          type: "POST",
-          url: "/signup",
-          data: { id_give: id, password_give: password },
-          success: (response) => {
-            if (response.msg === "아이디 중복, 다시 입력해주세요.") {
-              alert("아이디 중복, 다시 입력해주세요.");
-            } else {
-              alert("회원가입 완료");
-              location.href = "/";
-            }
-          },
-        });
-      };
-    </script>
+    <link rel="stylesheet" href="/static/styles/signup.css" />
+    <title>WATCHING</title>
+    <script src="/static/js/signup.js"></script>
   </head>
   <body>
-    <div class="wrap">
-      <div class="signup-box">
-        <p class="signup_title">회원가입</p>
-        <input
-          type="text"
-          id="id"
-          class="input"
-          placeholder="4~12자의 영문 대소문자"
-        />
-        <input
-          type="password"
-          id="password"
-          class="input"
-          minlength="4"
-          placeholder="4~12자의 영문대소문자와 숫자"
-        />
-        <button class="signup-btn" onclick="save_order()">회원가입</button>
+    <div id="container">
+      <div class="back_image"></div>
+      <header>
+        <div class="header_box">
+          <img width="150px" height="75px" src="/static/images/logo.png" />
+          <div class="goBack_box">
+            <a href="/" class="goBack_btn">돌아가기</a>
+          </div>
+        </div>
+      </header>
+      <div class="signup_container">
+        <div class="signup_box">
+          <div class="signup_title"><span>회원가입</span></div>
+          <div class="signup_input">
+            <input
+              type="text"
+              id="id"
+              class="input"
+              placeholder="아이디 (4~12자의 영문)"
+            />
+            <input
+              type="password"
+              id="password"
+              class="input"
+              minlength="4"
+              placeholder="비밀번호 (4~12자의 영문 또는 숫자)"
+            />
+          </div>
+          <button class="signup_btn" onclick="save_order()">
+            <span>회원가입</span>
+          </button>
+        </div>
       </div>
-      <a href="/" class="goBack-btn">돌아가기</a>
+      <footer>
+        <div class="footer_overview">
+          고객센터(이용 및 결제 문의) charley@watcha.co.kr • 02-000-0000 (유료)
+          <br />
+          Copyright © 2022 Corp. All rights reserved by hanghe99_0WeekTeam
+        </div>
+      </footer>
     </div>
   </body>
 </html>

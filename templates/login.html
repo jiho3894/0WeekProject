@@ -31,53 +31,49 @@
       type="text/css"
       href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
     />
-    <link rel="stylesheet" href="../static/login.css" />
+    <link rel="stylesheet" href="/static/styles/login.css" />
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
-    <title>프로젝트 테스트코드</title>
-    <script>
-      const login = () => {
-        let inputId = $("#userID").val();
-        let inputPw = $("#userPassword").val();
-        if (inputId == "" || inputPw == "") {
-          alert("아이디 비밀번호를 정확히 입력해주세요");
-          return false;
-        }
-        $.ajax({
-          type: "POST",
-          url: "/login_check",
-          data: {
-            id_give: inputId,
-            password_give: inputPw,
-          },
-          success: (response) => {
-            if (response["result"] == "success") {
-              location.href = "/main";
-            } else {
-              alert(response["msg"]);
-            }
-          },
-        });
-      };
-    </script>
+    <title>WATCHING</title>
+    <script src="/static/js/login.js"></script>
   </head>
   <body>
-    <div class="wrap">
-      <div class="box"></div>
-      <div class="login_box">
-        <p class="login_title">로그인</p>
-        <input id="userID" class="input" type="text" placeholder="아이디" />
-        <input
-          id="userPassword"
-          class="input"
-          type="password"
-          placeholder="비밀번호"
-        />
-        <button class="login_btn" onclick="login()">로그인</button>
+    <div id="container">
+      <div class="back_image"></div>
+      <header>
+        <div class="header_box">
+          <img width="150px" height="75px" src="/static/images/logo.png" />
+          <div class="goBack_box">
+            <a href="/signup_render" class="goBack_btn">회원가입하기</a>
+          </div>
+        </div>
+      </header>
+      <div class="signup_container">
+        <div class="signup_box">
+          <div class="signup_title"><span>로그인</span></div>
+          <div class="signup_input">
+            <input id="id" class="input" type="text" placeholder="아이디" />
+            <input
+              id="password"
+              class="input"
+              type="password"
+              placeholder="비밀번호"
+            />
+          </div>
+          <button class="signup_btn" onclick="login()">
+            <span>로그인</span>
+          </button>
+        </div>
       </div>
-      <a href="/signup_render" class="signup-btn">회원가입하기</a>
+      <footer>
+        <div class="footer_overview">
+          고객센터(이용 및 결제 문의) charley@watcha.co.kr • 02-000-0000 (유료)
+          <br />
+          Copyright © 2022 Corp. All rights reserved by hanghe99_0WeekTeam
+        </div>
+      </footer>
     </div>
   </body>
 </html>

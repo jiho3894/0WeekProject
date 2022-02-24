@@ -357,6 +357,7 @@ def manage_favorites():
     if 'userId_session' in session:
         movie_id_receive = request.form['movie_id_give']
         movie_title_receive = request.form['movie_title_give']
+        movie_overview_receive = request.form['movie_overview_give']
         poster_path_receive = request.form['poster_path_give']
         user_id_receive = session.get('userId_session')
         order_flag_receive = request.form['oder_flag_give']
@@ -372,6 +373,7 @@ def manage_favorites():
                     'movie_no': 0,
                     'movie_id': movie_id_receive,
                     'movie_title': movie_title_receive,
+                    'movie_overview': movie_overview_receive,
                     'poster_path': poster_path_receive,
                     'user_id': user_id_receive
                 }
@@ -386,6 +388,7 @@ def manage_favorites():
                     'movie_no': movie_no,
                     'movie_id': movie_id_receive,
                     'movie_title': movie_title_receive,
+                    'movie_overview': movie_overview_receive,
                     'poster_path': poster_path_receive,
                     'user_id': user_id_receive
                 }
