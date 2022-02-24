@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="saramIT" />
+    <meta property="og:description" content="개발자 취업 정보는 역시 saramIT" />
+    <meta
+      property="og:image"
+      content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOL7fp30_vkzMyWm2-VoDegLAQtJPp41arcA&usqp=CAUL"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <link rel="stylesheet" href="signup.css" />
+    <title>WATCHING</title>
+    <script src="signup.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div class="back_image"></div>
+      <header>
+        <div class="header_box">
+          <img width="150px" height="75px" src="logo.png" />
+          <div class="goBack_box">
+            <a href="index.html" class="goBack_btn">돌아가기</a>
+          </div>
+        </div>
+      </header>
+      <div class="signup_container">
+        <div class="signup_box">
+          <div class="signup_title"><span>회원가입</span></div>
+          <div class="signup_input">
+            <input
+              type="text"
+              id="id"
+              class="input"
+              placeholder="아이디 (4~12자의 영문)"
+            />
+            <input
+              type="password"
+              id="password"
+              class="input"
+              minlength="4"
+              placeholder="비밀번호 (4~12자의 영문 또는 숫자)"
+            />
+          </div>
+          <button class="signup_btn" onclick="save_order()">
+            <span>자동 회원가입 버튼</span>
+          </button>
+        </div>
+      </div>
+      <footer>
+        <div class="footer_overview">
+          고객센터(이용 및 결제 문의) charley@watcha.co.kr • 02-000-0000 (유료)
+          <br />
+          Copyright © 2022 Corp. All rights reserved by hanghe99_0WeekTeam
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

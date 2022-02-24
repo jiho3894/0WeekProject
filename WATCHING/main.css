@@ -1,0 +1,311 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+  border-radius: 50px;
+}
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(#e0eafc, #81ecec);
+  border-radius: 50px;
+}
+
+button {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+a {
+  text-decoration-line: none;
+  color: white;
+}
+
+a:hover {
+  font-weight: 600;
+  color: rgb(197, 197, 197);
+}
+
+.wrap {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+/*상단 헤더*/
+.navbar {
+  width: 100%;
+  height: 6rem;
+  position: fixed;
+  background-color: black;
+  opacity: 0.99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 30;
+}
+
+.headerContinaer {
+  width: 97%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar_logo {
+  width: 15rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.navbar_logo > span {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.navbar_userMenu {
+  width: 70px;
+  height: 70px;
+  border-radius: 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.navbar_userMenu > svg {
+  color: white;
+  position: absolute;
+  top: 4.8rem;
+}
+
+#profile_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background-color: pink;
+  border-radius: 1rem;
+}
+
+/*Detail 창 */
+
+.detailBox {
+  display: none;
+  width: 220px;
+  height: 350px;
+  background-color: black;
+  position: fixed;
+  top: 6rem;
+  right: 1.5%;
+  z-index: 30;
+  opacity: 0.95;
+  overflow: hidden;
+  border: 1px solid gray;
+}
+
+#profile_container {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  align-items: center;
+}
+
+#profile_box2 {
+  width: 70px;
+  height: 70px;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 0 10px 0 10px;
+  background-color: pink;
+}
+
+.nickName > span {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#edit_container {
+  width: 100%;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.editProfile,
+.editFavorite,
+.editPassword {
+  width: 200px;
+  margin: 0 10px 0 10px;
+  color: white;
+}
+
+svg {
+  width: 25px;
+  height: 25px;
+}
+
+/*영화 슬라이드*/
+.trailerContainer {
+  width: 100%;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+/*중간*/
+
+.middleContainer {
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.middleBox {
+  width: 95%;
+}
+
+.middleBox > span {
+  font-size: 30px;
+  color: white;
+  font-weight: 600;
+}
+
+/*마우스 올렸을때 나오는 설명*/
+.movie_desc {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  padding: 0 10px;
+  overflow: scroll;
+}
+
+.slid_movie {
+  width: 100%;
+  height: 400px;
+  background-color: #000;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.movie_id {
+  display: none;
+}
+
+.movie_desc:hover {
+  opacity: 1;
+  transition: all 0.7s;
+}
+
+.titleBox {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.favor-btn {
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 3px;
+  border: 0;
+}
+
+.favor-btn > p {
+  position: relative;
+  top: 3px;
+}
+
+.favor-btn:hover {
+  color: red;
+  transition: all 0.3s;
+}
+
+.movie-title {
+  color: #fff;
+  font-size: 24px;
+}
+
+.movie-desc-simple {
+  color: #fff;
+  font-size: 20px;
+  width: 100%;
+}
+
+/* 영화 리스트 */
+
+.movie_scroll_section {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.movie_scroll_section .scroll_movie {
+  width: 15vw;
+  height: 250px;
+  background-color: #fff;
+  margin: 10px;
+  background-size: cover;
+  background-position: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .movie_scroll_section {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .movie_scroll_section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .trailerContainer {
+    height: 400px;
+  }
+
+  .movie-title {
+    font-size: 18px;
+  }
+
+  .movie-desc-simple {
+    font-size: 16px;
+  }
+}
