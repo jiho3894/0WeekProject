@@ -1,1 +1,1 @@
-#  [🏠 HOMEPAGE](https://jiho3894.github.io/0WeekProject/WATCHING/index.html)
+#  [🏠 HOMEPAGE](http://54.180.94.133/)
