@@ -17,7 +17,7 @@ app.config["IMAGE_UPLOADS"] = "/static/images"
 img_filepath = 'static/images/'
 
 client = MongoClient(
-    'mongodb+srv://admin:admin@cluster0.cs5sa.mongodb.net/Cluster0?retryWrites=true&w=majority')
+    'mongoDB_KEY')
 db = client.toy
 
 
