@@ -21,4 +21,5 @@ TMDB(The movie database)의 OpenAPI를 활용한 영화 데이터베이스 서�
 
 # 6️⃣깃허브
 https://github.com/pg-Parunson/WATCHING <br/>
-https://github.com/jiho3894
+https://github.com/jiho3894 <br/>
+https://github.com/cpk0709 
